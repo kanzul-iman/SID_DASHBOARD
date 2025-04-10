@@ -1,0 +1,76 @@
+<div class="dashboard-section">  
+    <h2>Assignments</h2>  
+    <p>Manage your assignments and track your progress:</p>  
+    <ul id="assignments-list">  
+        <li class="assignment-item">  
+            <strong>Assignment 1:</strong> Data Structures Project  
+            <span class="due-date">Due: 2025-04-10</span>  
+            <button onclick="markComplete(this)">Mark as Complete</button>  
+            <button onclick="deleteAssignment(this)">Delete</button>  
+        </li>  
+        <li class="assignment-item">  
+            <strong>Assignment 2:</strong> Database Systems Report  
+            <span class="due-date">Due: 2025-04-12</span>  
+            <button onclick="markComplete(this)">Mark as Complete</button>  
+            <button onclick="deleteAssignment(this)">Delete</button>  
+        </li>  
+    </ul>  
+    
+    <h3>Add New Assignment</h3>  
+    <input type="text" id="assignment-name" placeholder="Assignment Name" />  
+    <input type="date" id="assignment-due-date" />  
+    <button onclick="addAssignment()">Add Assignment</button>  
+
+    <style>  
+        .assignment-item {  
+            padding: 10px;  
+            border: 1px solid #ccc;  
+            background-color: #e9ffe8; /* Light green background */  
+            margin-bottom: 10px;  
+            border-radius: 5px;  
+        }  
+        .due-date {  
+            font-weight: bold;  
+            color: #d9534f; /* Red for due date */  
+            margin-left: 10px;  
+        }  
+    </style>  
+</div>  
+
+<script>  
+    function markComplete(button) {  
+        const assignment = button.parentElement;  
+        assignment.style.textDecoration = "line-through";  
+        button.innerText = "Completed";  
+        button.disabled = true;  
+    }  
+
+    function deleteAssignment(button) {  
+        const assignment = button.parentElement;  
+        assignment.remove();  
+    }  
+
+    function addAssignment() {  
+        const name = document.getElementById("assignment-name").value;  
+        const dueDate = document.getElementById("assignment-due-date").value;  
+
+        if (name && dueDate) {  
+            const assignmentsList = document.getElementById("assignments-list");  
+            const newAssignment = document.createElement("li");  
+            newAssignment.className = "assignment-item";  
+            newAssignment.innerHTML = `  
+                <strong>${name}</strong>  
+                <span class="due-date">Due: ${dueDate}</span>  
+                <button onclick="markComplete(this)">Mark as Complete</button>  
+                <button onclick="deleteAssignment(this)">Delete</button>  
+            `;  
+            assignmentsList.appendChild(newAssignment);  
+
+            // Clear input fields  
+            document.getElementById("assignment-name").value = '';  
+            document.getElementById("assignment-due-date").value = '';  
+        } else {  
+            alert("Please enter assignment name and due date.");  
+        }  
+    }  
+</script>  

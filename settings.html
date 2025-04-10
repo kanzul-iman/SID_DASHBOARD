@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .settings-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #3498db;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        button {
+            background-color: #e74c3c;
+            color: #fff;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #c0392b;
+        }
+
+        button.update {
+            background-color: #27ae60;
+        }
+
+        button.update:hover {
+            background-color: #219653;
+        }
+    </style>
+</head>
+<body>
+    <div class="settings-container">
+        <h2>Settings</h2>
+        <p>Manage your account information here.</p>
+        <button onclick="deleteInfo()">Delete Info</button>
+        <p>Change your password and update your email address.</p>
+        <button onclick="updateInfo()" class="update">Update Info</button>
+    </div>
+
+    <script>
+        function deleteInfo() {
+            alert("Account information deleted!");
+        }
+
+        function updateInfo() {
+            alert("Account information updated!");
+        }
+    </script>
+</body>
+</html>

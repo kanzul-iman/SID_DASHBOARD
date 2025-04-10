@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timetable</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .timetable-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 800px;
+        }
+
+        h2 {
+            color: #3498db;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: #555;
+            text-align: center;
+        }
+
+        /* Table Styles */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+            text-align: center;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        /* Button Styles */
+        button {
+            background-color: #e74c3c;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #c0392b;
+        }
+
+        /* Add Class Form */
+        .add-class-form {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .add-class-form input {
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            width: 100%;
+            max-width: 200px;
+            box-sizing: border-box;
+        }
+
+        .add-class-form button {
+            background-color: #27ae60;
+            color: #fff;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .add-class-form button:hover {
+            background-color: #219653;
+        }
+    </style>
+</head>
+<body>
+    <div class="timetable-container">
+        <h2>Timetable</h2>
+        <p>View and manage your timetable for classes:</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Course Code</th>
+                    <th>Course Name</th>
+                    <th>Days</th>
+                    <th>Instructor</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>08:00-08:45</td>
+                    <td>CN</td>
+                    <td>Computer Networks</td>
+                    <td>Mon, Wed</td>
+                    <td>Dr. Ansari</td>
+                    <td><button onclick="removeClass(this)">Remove</button></td>
+                </tr>
+                <tr>
+                    <td>08:45-09:30</td>
+                    <td>SP</td>
+                    <td>Statistics and Probability</td>
+                    <td>Tue, Thu</td>
+                    <td>Dr. Solangi</td>
+                    <td><button onclick="removeClass(this)">Remove</button></td>
+                </tr>
+                <tr>
+                    <td>09:45-10:30</td>
+                    <td>WE</td>
+                    <td>Web Engineering</td>
+                    <td>Mon, Fri</td>
+                    <td>Engr. Faiz</td>
+                    <td><button onclick="removeClass(this)">Remove</button></td>
+                </tr>
+                <tr>
+                    <td>10:30-11:15</td>
+                    <td>MIT</td>
+                    <td>Microprocessor and Interfacing</td>
+                    <td>Tue, Thu</td>
+                    <td>Engr. Nadeem</td>
+                    <td><button onclick="removeClass(this)">Remove</button></td>
+                </tr>
+                <tr>
+                    <td>11:15-12:00</td>
+                    <td>SE</td>
+                    <td>Software Engineering</td>
+                    <td>Mon, Wed, Fri</td>
+                    <td>Dr. Lee</td>
+                    <td><button onclick="removeClass(this)">Remove</button></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="add-class-form">
+            <h3>Add New Class</h3>
+            <input type="text" id="new-course-code" placeholder="Course Code">
+            <input type="text" id="new-course-name" placeholder="Course Name">
+            <input type="text" id="new-course-days" placeholder="Days (e.g., Mon, Wed)">
+            <input type="text" id="new-course-instructor" placeholder="Instructor">
+            <input type="text" id="new-course-time" placeholder="Time (e.g., 08:00-08:45)">
+            <button onclick="addClass()">Add Class</button>
+        </div>
+    </div>
+
+    <script>
+        function removeClass(button) {
+            const row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        }
+
+        function addClass() {
+            const code = document.getElementById("new-course-code").value;
+            const name = document.getElementById("new-course-name").value;
+            const days = document.getElementById("new-course-days").value;
+            const instructor = document.getElementById("new-course-instructor").value;
+            const time = document.getElementById("new-course-time").value;
+
+            if (code && name && days && instructor && time) {
+                let table = document.querySelector('table');
+                let newRow = table.insertRow(table.rows.length);
+
+                let cell1 = newRow.insertCell(0);
+                cell1.innerHTML = time;
+
+                let cell2 = newRow.insertCell(1);
+                cell2.innerHTML = code;
+
+                let cell3 = newRow.insertCell(2);
+                cell3.innerHTML = name;
+
+                let cell4 = newRow.insertCell(3);
+                cell4.innerHTML = days;
+
+                let cell5 = newRow.insertCell(4);
+                cell5.innerHTML = instructor;
+
+                let cell6 = newRow.insertCell(5);
+                cell6.innerHTML = '<button onclick="removeClass(this)">Remove</button>';
+
+                // Clear input fields
+                document.getElementById("new-course-code").value = '';
+                document.getElementById("new-course-name").value = '';
+                document.getElementById("new-course-days").value = '';
+                document.getElementById("new-course-instructor").value = '';
+                document.getElementById("new-course-time").value = '';
+
+            } else {
+                alert("Please fill in all fields.");
+            }
+        }
+    </script>
+</body>
+</html>

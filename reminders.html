@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reminders</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .reminders-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 800px;
+        }
+
+        h2 {
+            color: #3498db;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+
+        #reminders-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .reminder-item {
+            padding: 15px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .reminder-date {
+            font-weight: bold;
+            color: #e74c3c;
+            margin-left: 10px;
+        }
+
+        button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .add-reminder-form {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .add-reminder-form input[type="text"],
+        .add-reminder-form input[type="date"],
+        .add-reminder-form input[type="time"] {
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            width: 100%;
+            max-width: 200px;
+            box-sizing: border-box;
+        }
+
+        .add-reminder-form button {
+            background-color: #27ae60;
+            color: #fff;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .add-reminder-form button:hover {
+            background-color: #219653;
+        }
+    </style>
+</head>
+<body>
+    <div class="reminders-container">
+        <h2>Reminders</h2>
+        <p>Set and manage your important reminders:</p>
+        <ul id="reminders-list">
+            <!-- Reminders will be added here -->
+        </ul>
+
+        <div class="add-reminder-form">
+            <h3>Add New Reminder</h3>
+            <input type="text" id="reminder-description" placeholder="Reminder Description" />
+            <input type="date" id="reminder-date" />
+            <input type="time" id="reminder-time" />
+            <button onclick="addReminder()">Add Reminder</button>
+        </div>
+    </div>
+
+    <script>
+        function markReminderComplete(button) {
+            const reminder = button.parentNode.parentNode;
+            reminder.style.textDecoration = "line-through";
+            button.innerText = "Completed";
+            button.disabled = true;
+        }
+
+        function deleteReminder(button) {
+            const reminder = button.parentNode.parentNode;
+            reminder.remove();
+        }
+
+        function addReminder() {
+            const description = document.getElementById("reminder-description").value;
+            const date = document.getElementById("reminder-date").value;
+            const time = document.getElementById("reminder-time").value;
+
+            if (description && date && time) {
+                const remindersList = document.getElementById("reminders-list");
+                const newReminder = document.createElement("li");
+                newReminder.className = "reminder-item";
+                newReminder.innerHTML = `
+                    <span><strong>Reminder:</strong> ${description}</span>
+                    <span class="reminder-date">Date: ${date} ${time}</span>
+                    <div>
+                        <button onclick="markReminderComplete(this)">Mark as Done</button>
+                        <button onclick="deleteReminder(this)">Delete</button>
+                    </div>
+                `;
+                remindersList.appendChild(newReminder);
+
+                // Schedule the reminder
+                scheduleReminder(description, date, time);
+
+                // Clear input fields
+                document.getElementById("reminder-description").value = '';
+                document.getElementById("reminder-date").value = '';
+                document.getElementById("reminder-time").value = '';
+            } else {
+                alert("Please enter a reminder description, date, and time.");
+            }
+        }
+
+        function scheduleReminder(description, date, time) {
+            const reminderDateTime = new Date(`${date}T${time}`);
+            const currentTime = new Date();
+
+            if (reminderDateTime > currentTime) {
+                const delay = reminderDateTime.getTime() - currentTime.getTime();
+                setTimeout(() => {
+                    alert(`Reminder: ${description}`);
+                }, delay);
+            } else {
+                alert("Reminder time is in the past.");
+            }
+        }
+    </script>
+</body>
+</html>

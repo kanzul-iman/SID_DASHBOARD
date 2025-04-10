@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SID DASHBOARD</title>
+  <link rel="stylesheet" href="style04.css">
+  
+</head>
+<body>
+  <div class="top-section">
+    <div class="left-box">
+        <img src="/04images/a.png" alt="Default Profile Picture" class="profile-pic" id="profilePic" />
+        <input type="file" id="upload" class="upload-btn" accept="image/*" onchange="uploadImage()" />
+        <div class="theme-switcher">
+            <button id="themeA">A</button>
+            <button id="themeB">B</button>
+            <button id="themeC">C</button>
+            <button id="themeD">D</button>
+        </div>
+    </div>
+</div>
+
+    <div class="right-box">
+      <br>
+      SID DASHBOARD
+    </div>
+  </div>
+
+  <nav>
+    <ul class="horizontal-nav">
+      <li><a href="intro.html">INTRO</a></li>
+      <li><a href="INFO.htmL">INFO</a></li>
+      <li><a href="courses.html">COURSE</a></li>
+      <li><a href="TimeTable.html">TIMETABLE</a></li>
+      <li><a href="assignments.html">ASSIGNMENTS</a></li>
+      <li><a href="PROGRESS.html">PROGRESS</a></li>
+      <li><a href="reminders.html">REMINDERS</a></li>
+      <li><a href="settings.html">SETTINGS</a></li>
+      <li><a href="#" onclick="confirmLogout()">LOG OUT</a></li>
+    </ul>
+  </nav>
+
+  <div class="quote-text">
+    <br>
+    "The future belongs to those who believe in the beauty of their dreams."
+    <br>
+  </div>
+
+  <main>
+    <section id="content"></section>
+  </main>
+
+  <footer>
+    <p>All rights reserved by Sidra Sami Khanzada</p>
+    <br>
+  </footer>
+
+  <div id="logoutModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <p>Are you sure you want to logout?</p>
+      <button onclick="logout()">Yes</button>
+      <button onclick="closeModal()">No</button>
+    </div>
+  </div>
+
+  <script src="script04.js"></script>
+</body>
+</html>
